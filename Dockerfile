@@ -1,4 +1,4 @@
-FROM debian:latest
+FROM ubuntu:latest
 MAINTAINER Maestrano <it@maestrano.com>
 
 # Add ansible configuration
@@ -13,10 +13,9 @@ WORKDIR /etc/ansible
 # Install Ansible
 RUN apt-get -y update &&  \
     apt-get -y upgrade &&  \
-    apt-get -q -y --no-install-recommends install python-yaml \
-               python-jinja2 python-httplib2 python-keyczar \
-               python-paramiko python-setuptools \
-               python-pkg-resources git python-pip &&  \
+    apt-get -q -y --no-install-recommends install unattended-upgrades git \
+              python-yaml python-jinja2 python-httplib2 python-keyczar \
+              python-paramiko python-setuptools python-pkg-resources python-pip &&  \
     mkdir -p /etc/ansible/ &&  \
     pip install ansible &&  \
     ansible-playbook /etc/ansible/playbooks/mysql.yml -c local &&  \
