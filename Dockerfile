@@ -31,3 +31,4 @@ RUN echo "#!/bin/bash\n/etc/init.d/mysql start\n/etc/init.d/apache2 start\n/bin/
     chmod 755 /root/init.sh
 
 ENTRYPOINT ["/root/init.sh"]
+CMD ["/root/init.sh"]
