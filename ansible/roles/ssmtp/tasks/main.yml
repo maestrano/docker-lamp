@@ -1,0 +1,17 @@
+- name: General | SSMTP packages
+  apt: name=ssmtp state=present
+  when: not {{skip_install}}
+
+- name: SSMTP | Configure ssmtp.conf
+  template: 
+    src: etc-ssmtp-ssmtp-conf
+    dest: /etc/ssmtp/ssmtp.conf
+    owner: root
+    mode: 0600
+
+- name: SSMTP | Configure revaliases
+  template: 
+    src: etc-ssmtp-revaliases
+    dest: /etc/ssmtp/revaliases
+    owner: root
+    mode: 0600

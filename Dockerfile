@@ -1,12 +1,8 @@
-FROM ubuntu:latest
+FROM ubuntu:14.10
 MAINTAINER Maestrano <it@maestrano.com>
 
 # Add ansible configuration
-ADD ansible/playbooks/ /etc/ansible/playbooks/
-ADD ansible/templates/ /etc/ansible/templates/
-ADD ansible/var/ /etc/ansible/var/
-ADD ansible/var/settings.yml /etc/ansible/var/settings.yml
-ADD ansible/hosts /etc/ansible/hosts
+ADD ansible /etc/ansible
 
 WORKDIR /etc/ansible
 
@@ -17,18 +13,21 @@ RUN apt-get -y update &&  \
               python-yaml python-jinja2 python-httplib2 python-keyczar \
               python-paramiko python-setuptools python-pkg-resources python-pip &&  \
     mkdir -p /etc/ansible/ &&  \
-    pip install ansible &&  \
-    ansible-playbook /etc/ansible/playbooks/mysql.yml -c local &&  \
-    ansible-playbook /etc/ansible/playbooks/apache.yml -c local &&  \
+    pip install ansible
+RUN ansible-playbook -i hosts site.yml &&  \
     apt-get clean purge -y python2.6 python2.6-minimal &&  \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Expose port 22 and 80
 EXPOSE 22 80
 
+# Configuration script
+ADD /scripts/configure.py /root/configure.py
+RUN chmod 755 /root/configure.py
+
 # Startup script to run mysql and apache
-RUN echo "#!/bin/bash\n/etc/init.d/mysql start\n/etc/init.d/apache2 start\n/bin/bash" > /root/init.sh && \
-    chmod 755 /root/init.sh
+ADD /scripts/init.sh /root/init.sh
+RUN chmod 755 /root/init.sh
 
 ENTRYPOINT ["/root/init.sh"]
 CMD ["/root/init.sh"]
