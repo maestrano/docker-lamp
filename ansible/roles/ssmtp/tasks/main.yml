@@ -1,6 +1,5 @@
 - name: General | SSMTP packages
   apt: name=ssmtp state=present
-  when: not {{skip_install}}
 
 - name: SSMTP | Configure ssmtp.conf
   template: 
@@ -8,6 +7,8 @@
     dest: /etc/ssmtp/ssmtp.conf
     owner: root
     mode: 0600
+  tags:
+    - configuration
 
 - name: SSMTP | Configure revaliases
   template: 
@@ -15,3 +16,5 @@
     dest: /etc/ssmtp/revaliases
     owner: root
     mode: 0600
+  tags:
+    - configuration

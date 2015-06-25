@@ -1,11 +1,6 @@
 FROM ubuntu:14.10
 MAINTAINER Maestrano <it@maestrano.com>
 
-# Add ansible configuration
-ADD ansible /etc/ansible
-
-WORKDIR /etc/ansible
-
 # Install Ansible
 RUN apt-get -y update &&  \
     apt-get -y upgrade &&  \
@@ -14,6 +9,12 @@ RUN apt-get -y update &&  \
               python-paramiko python-setuptools python-pkg-resources python-pip &&  \
     mkdir -p /etc/ansible/ &&  \
     pip install ansible
+
+# Add ansible configuration
+ADD ansible /etc/ansible
+WORKDIR /etc/ansible
+
+# Run Ansible
 RUN ansible-playbook -i hosts site.yml &&  \
     apt-get clean purge -y python2.6 python2.6-minimal &&  \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*

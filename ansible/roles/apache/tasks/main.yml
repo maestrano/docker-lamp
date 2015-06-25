@@ -11,7 +11,6 @@
     - php5-curl
     - sendmail
     - unzip
-  when: not {{skip_install}}
 
 - name: Apache | Enable php modules
   apache2_module: "name={{ item }} state=present"
@@ -22,7 +21,6 @@
     - headers
     - rewrite
     - dir
-  when: not {{skip_install}}
 
 - name: Apache | Remove default site
   file: path={{ item }} state=absent
@@ -36,3 +34,5 @@
     dest: /etc/php5/apache2/php.ini
     owner: root
     mode: 0755
+  tags:
+    - configuration
