@@ -27,7 +27,7 @@
 - name: MySQL | Start the MySQL service
   service: 
     name: mysql 
-    state: started
+    state: restarted
 
 - name: MySQL | Update mysql root password for all root accounts
   mysql_user: 
