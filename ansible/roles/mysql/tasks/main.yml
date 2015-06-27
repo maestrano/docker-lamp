@@ -1,3 +1,7 @@
+- name: Check if MySQL is already installed.
+  stat: path=/etc/init.d/mysql
+  register: mysql_installed
+
 - name: General | Install MySQL packages
   apt: "name={{ item }} state=present"
   with_items:
@@ -5,6 +9,7 @@
     - mysql-client-5.5
     - libmysqlclient-dev
     - python-mysqldb
+  when: mysql_installed.stat.exists == false
 
 - name: MySQL | Configuration file /etc/mysql/my.cnf
   template: 
@@ -24,10 +29,10 @@
   tags:
     - configuration
 
-- name: MySQL | Start the MySQL service
-  service: 
-    name: mysql 
-    state: restarted
+- name: MySQL | Restart
+  command: service mysql restart
+  tags:
+    - configuration
 
 - name: MySQL | Update mysql root password for all root accounts
   mysql_user: 
