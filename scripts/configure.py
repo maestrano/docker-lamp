@@ -6,8 +6,8 @@
 import json
 import os
 
-# The variable skip_install is set so packages installation is skipped
-extra_vars = {'skip_install' : True}
+# Extra variables to be passed to Ansible
+extra_vars = {}
 
 # Map the environment variables starting with MNO_VARIABLE_NAME=123 to a hash {'variable_name' : 123}
 for key in os.environ.keys():

@@ -1,4 +1,4 @@
-- name: Check if MySQL is already installed.
+- name: General | Check if MySQL is already installed
   stat: path=/etc/init.d/mysql
   register: mysql_installed
 

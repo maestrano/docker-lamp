@@ -1,3 +1,7 @@
+- name: General | Check if Apache is already installed
+  stat: path=/etc/init.d/apache2
+  register: apache2_installed
+
 - name: General | Install Apache packages
   apt: "name={{ item }} state=present"
   with_items:
@@ -11,6 +15,7 @@
     - php5-curl
     - sendmail
     - unzip
+  when: apache2_installed.stat.exists == false
 
 - name: Apache | Enable php modules
   apache2_module: "name={{ item }} state=present"
