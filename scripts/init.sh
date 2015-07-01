@@ -1,12 +1,14 @@
 #!/bin/bash
 
 function start_all() {
-  # Execute configuration script
-  /root/configure.py
-
   # Start services
   /etc/init.d/mysql start
   /etc/init.d/apache2 start
+
+  # Execute configuration script
+  /root/configure.py
+  
+  # Expose a bash script for interactive mode
   /bin/bash
 }
 
