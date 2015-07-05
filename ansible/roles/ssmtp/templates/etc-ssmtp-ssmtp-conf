@@ -1,10 +1,5 @@
 # ---- basic config
 root={{ notification_mail }}
-AuthMethod=LOGIN
-UseSTARTTLS=YES
-hostname={{ ssmtp_hostname }}
+hostname={{ server_hostname }}
 FromLineOverride=YES
-# ---- mandrill config
-AuthUser={{ ssmtp_auth_user }}
 mailhub={{ ssmtp_mailhub }}
-AuthPass={{ ssmtp_auth_pass }}

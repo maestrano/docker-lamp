@@ -6,7 +6,7 @@
     src: etc-ssmtp-ssmtp-conf
     dest: /etc/ssmtp/ssmtp.conf
     owner: root
-    mode: 0600
+    mode: 0644
   tags:
     - configuration
 
@@ -15,6 +15,6 @@
     src: etc-ssmtp-revaliases
     dest: /etc/ssmtp/revaliases
     owner: root
-    mode: 0600
+    mode: 0644
   tags:
     - configuration
