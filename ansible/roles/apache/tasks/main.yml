@@ -41,3 +41,5 @@
     mode: 0755
   tags:
     - configuration
+
+- include: ioncube.yml

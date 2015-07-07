@@ -1,0 +1,34 @@
+- name: PHP | Get PHP version
+  shell: "php -v | grep -Eow '^PHP [^ ]+' | awk '{ print $2 }' | cut -d'.' -f 1,2"
+  register: phpversion
+  tags:
+    - configuration
+
+- name: IonCube | Download IonCube
+  get_url:
+    url: http://downloads3.ioncube.com/loader_downloads/ioncube_loaders_lin_x86-64.tar.gz
+    dest: /tmp/ioncube_loaders_lin_x86-64.tar.gz
+
+- name: IonCube | Extract IonCube
+  unarchive:
+    src: /tmp/ioncube_loaders_lin_x86-64.tar.gz
+    dest: /usr/local/
+
+- name: IonCube | Install IonCube
+  lineinfile:
+    dest: "{{ item }}"
+    regexp: "^zend_extension = /usr/local/ioncube/ioncube"
+    line: "zend_extension = /usr/local/ioncube/ioncube_loader_lin_{{ phpversion.stdout }}.so"
+  with_items:
+    - /etc/php5/apache2/php.ini
+    - /etc/php5/cli/php.ini
+  tags:
+    - configuration
+
+- name: IonCube | Remove archive
+  file: path=/tmp/ioncube_loaders_lin_x86-64.tar.gz state=absent
+
+- name: Apache | Restart
+  command: service apache2 restart
+  tags:
+    - configuration
