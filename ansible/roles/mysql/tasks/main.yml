@@ -31,8 +31,6 @@
 
 - name: MySQL | Restart
   command: service mysql restart
-  tags:
-    - configuration
 
 - name: MySQL | Update mysql root password for all root accounts
   mysql_user: 

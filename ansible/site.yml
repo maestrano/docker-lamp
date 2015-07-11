@@ -5,6 +5,6 @@
 - hosts: localhost
   connection: local
   roles:
-    - apache
     - mysql
     - ssmtp
+    - apache

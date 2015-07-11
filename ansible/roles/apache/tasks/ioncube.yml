@@ -30,5 +30,3 @@
 
 - name: Apache | Restart
   command: service apache2 restart
-  tags:
-    - configuration
