@@ -1,6 +1,7 @@
 FROM ubuntu:14.10
 MAINTAINER Maestrano <it@maestrano.com>
 
+RUN echo `env`
 # Install Ansible
 RUN apt-get -y update &&  \
     apt-get -y upgrade &&  \
