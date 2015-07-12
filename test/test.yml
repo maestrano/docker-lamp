@@ -1,7 +1,10 @@
 ---
+
+# This playbook installs a LAMP stack with Apache, MySQL and SSMTP
+
 - hosts: localhost
-  remote_user: root
+  connection: local
   roles:
-    - apache
     - mysql
     - ssmtp
+    - apache
