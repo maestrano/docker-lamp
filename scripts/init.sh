@@ -1,8 +1,15 @@
 #!/bin/bash
 
+LOCK_FILE="/etc/ansible/configuration.lock"
+
 function start_all() {
-  # Execute configuration script
-  /root/configure.py
+  # Execute configuration script only once
+  if [ ! -f $LOCK_FILE ]; then
+    touch $LOCK_FILE
+
+    # Execute configuration script
+    /root/configure.py
+  fi
 
   # Start services
   /etc/init.d/mysql start
