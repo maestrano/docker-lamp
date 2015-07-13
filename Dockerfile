@@ -15,7 +15,7 @@ ADD ansible /etc/ansible
 WORKDIR /etc/ansible
 
 # Run Ansible
-RUN ansible-playbook -vvvv -i hosts site.yml &&  \
+RUN ansible-playbook -i hosts site.yml &&  \
     apt-get clean purge -y python2.6 python2.6-minimal &&  \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
