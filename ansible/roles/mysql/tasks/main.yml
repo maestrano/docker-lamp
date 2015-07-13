@@ -17,6 +17,7 @@
     dest: /etc/mysql/my.cnf
     owner: root
     mode: 0600
+  register: config_etc_mysql_my_cnf
   tags:
     - configuration
 
@@ -31,6 +32,7 @@
 
 - name: MySQL | Restart
   command: service mysql restart
+  when: config_etc_mysql_my_cnf.changed
 
 - name: MySQL | Update mysql root password for all root accounts
   mysql_user: 
