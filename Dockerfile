@@ -30,8 +30,8 @@ RUN chmod 755 /root/configure.py
 ADD /scripts/init.sh /root/init.sh
 RUN chmod 755 /root/init.sh
 
-# Map ansible volume
-VOLUME ["/etc/ansible"]
+# Map mutable volumes
+VOLUME ["/etc/ansible", "/etc/mysql", "/var/lib/mysql", "/etc/apache2", "/etc/php5", "/var/log/apache2", "/var/log/mysql"]
 
 ENTRYPOINT ["/root/init.sh"]
 CMD ["/root/init.sh"]
