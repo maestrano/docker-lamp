@@ -31,7 +31,7 @@ ADD /scripts/init.sh /root/init.sh
 RUN chmod 755 /root/init.sh
 
 # Map mutable volumes
-VOLUME ["/etc/ansible", "/etc/mysql", "/var/lib/mysql", "/etc/apache2", "/etc/php5", "/var/log/apache2", "/var/log/mysql"]
+VOLUME ["/etc/ansible"]
 
 ENTRYPOINT ["/root/init.sh"]
 CMD ["/root/init.sh"]
