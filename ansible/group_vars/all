@@ -1,6 +1,17 @@
 # image configuration
 power_units: 2
 
+# apache
+apache_start_servers:             '{{ 1 * (power_units|int) / 2 }}'
+apache_thread_limit:              '{{ 2 * (power_units|int) / 2 }}'
+apache_threads_per_child:         '{{ 2 * (power_units|int) / 2 }}'
+apache_max_request_workers:       '{{ 10 * (power_units|int) / 2 }}'
+apache_max_connections_per_child: '{{ 25 * (power_units|int) / 2 }}'
+apache_min_spare_threads:         '{{ 1 * (power_units|int) / 2 }}'
+apache_max_spare_threads:         '{{ 1 * (power_units|int) / 2 }}'
+apache_min_spare_servers:         '{{ 1 * (power_units|int) / 2 }}'
+apache_max_spare_servers:         '{{ 1 * (power_units|int) / 2 }}'
+
 # php.ini
 php_max_execution_time: '300'
 php_max_input_time: '180'

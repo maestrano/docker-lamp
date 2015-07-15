@@ -28,10 +28,39 @@
     - dir
 
 - name: Apache | Remove default site
-  file: path={{ item }} state=absent
+  file:
+   path: "{{ item }}"
+   state: absent
   with_items:
     - /etc/apache2/sites-enabled/000-default.conf
     - /etc/apache2/sites-enabled/000-default
+
+- name: Apache | Prefork Configuration files 
+  template: 
+    src: mods-available-mpm-prefork.conf
+    dest: /etc/apache2/mods-available/mpm_prefork.conf
+    owner: root
+    mode: 0755
+  tags:
+    - configuration
+
+- name: Apache | Worker Configuration files 
+  template: 
+    src: mods-available-mpm-worker.conf
+    dest: /etc/apache2/mods-available/mpm_worker.conf
+    owner: root
+    mode: 0755
+  tags:
+    - configuration
+
+- name: Apache | Enable Prefork and Worker mods
+  file:
+    src: "/etc/apache2/mods-available/{{ item }}"
+    dest: "/etc/apache2/mods-enabled/{{ item }}"
+    state: link
+  with_items:
+    - mpm_prefork.conf
+    - mpm_prefork.load
 
 - name: Apache | Configuration file /etc/php5/apache2/php.ini
   template: 
