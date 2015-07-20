@@ -1,7 +1,7 @@
 # Build Maestrano LAMP stack based on Ubuntu 14.10
 
 ## Build Docker container locally
-`sudo docker build -t .`
+`sudo docker build -t local/docker-lamp .`
 
 ## Entry point
 The script `scripts/init.sh` will be run on container start, taking care of starting Apache and MySQL services.
