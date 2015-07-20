@@ -4,5 +4,5 @@
 
 import os
 
-command = "cd /etc/ansible && ansible-playbook -i hosts site.yml --tags 'update'"
+command = "cd /etc/ansible && ansible-playbook -vvv -i hosts site.yml --tags 'update'"
 os.system(command)
