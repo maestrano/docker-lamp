@@ -22,9 +22,8 @@ RUN ansible-playbook -i hosts site.yml &&  \
 # Expose port 22 and 80
 EXPOSE 22 80
 
-# Configuration script
-ADD /scripts/configure.py /root/configure.py
-RUN chmod 755 /root/configure.py
+# Configuration scripts
+ADD /scripts/ /root/
 
 # Startup script to run mysql and apache
 ADD /scripts/init.sh /root/init.sh
