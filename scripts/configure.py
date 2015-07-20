@@ -17,5 +17,5 @@ for key in os.environ.keys():
     extra_vars[name] = value
 
 # Call Ansible to configure the environment
-command = "cd /etc/ansible && ansible-playbook -i hosts site.yml --tags 'configuration' --extra-vars='" + json.dumps(extra_vars) + "'"
+command = "cd /etc/ansible && ansible-playbook -vvv -i hosts site.yml --tags 'configuration' --extra-vars='" + json.dumps(extra_vars) + "'"
 os.system(command)
