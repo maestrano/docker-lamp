@@ -7,7 +7,8 @@ function start_all() {
   # Start services
   /etc/init.d/mysql start
   /etc/init.d/apache2 start
-  
+  cron
+
   # Expose a bash script for interactive mode
   /bin/bash
 }
