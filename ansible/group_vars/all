@@ -13,12 +13,13 @@ apache_min_spare_servers:         '{{ 1 * (power_units|int) }}'
 apache_max_spare_servers:         '{{ 2 * (power_units|int) }}'
 
 # php.ini
+php_error_reporting: E_ALL & ~E_DEPRECATED & ~E_STRICT
 php_max_execution_time: '300'
 php_max_input_time: '180'
 php_memory_limit: '{{ 32 * (power_units|int) }}M'
-php_display_errors: 'On'
+php_display_errors: 'Off'
 php_display_startup_errors: 'On'
-php_html_errors: 'On'
+php_html_errors: 'Off'
 php_post_max_size: '8M'
 php_upload_max_filesize: '8M'
 
