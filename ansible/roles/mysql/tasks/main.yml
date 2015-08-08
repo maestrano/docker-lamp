@@ -29,6 +29,17 @@
   tags:
     - configuration
 
+- name: MySQL | Set directory permissions
+  file:
+    path: /var/lib/mysql
+    mode: 0755
+    owner: mysql
+    group: mysql
+    state: directory
+    recurse: yes
+  tags:
+    - configuration
+
 - name: MySQL | Restart
   command: service mysql restart
 
