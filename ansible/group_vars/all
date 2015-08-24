@@ -20,8 +20,8 @@ php_memory_limit: '{{ 32 * (power_units|int) }}M'
 php_display_errors: 'Off'
 php_display_startup_errors: 'On'
 php_html_errors: 'Off'
-php_post_max_size: '8M'
-php_upload_max_filesize: '8M'
+php_post_max_size: '60M'
+php_upload_max_filesize: '60M'
 
 # my.cnf
 innodb_additional_mem_pool_size: '{{ 4 * (power_units|int) }}M'
