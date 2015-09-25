@@ -1,4 +1,4 @@
-# Build Maestrano LAMP stack based on Ubuntu 14.10
+# Build Maestrano LAMP stack based on Ubuntu 14.04
 
 ## Build Docker container locally
 `sudo docker build -t local/docker-lamp .`
