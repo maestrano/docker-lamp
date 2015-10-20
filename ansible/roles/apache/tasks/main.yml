@@ -13,6 +13,7 @@
     - php-soap
     - php5-gd
     - php5-curl
+    - php5-imap
     - sendmail
     - unzip
   when: apache2_installed.stat.exists == false
@@ -88,5 +89,10 @@
     mode: 0755
   tags:
     - configuration
+
+- name: Apache | Enable PHP modules
+  shell: "php5enmod {{ item }}"
+  with_items:
+    - imap
 
 - include: ioncube.yml
