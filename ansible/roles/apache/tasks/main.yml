@@ -27,6 +27,7 @@
     - headers
     - rewrite
     - dir
+    - expires
 
 - name: Apache | Remove default site
   file:
