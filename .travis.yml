@@ -2,17 +2,13 @@
 
 language: python
 python: "2.7"
+sudo: required
+dist: trusty
 
-env:
-  - SITE=test.yml
+services:
+  - docker
 
 before_install:
-  - sudo apt-get update -qq
-  - sudo apt-get remove --purge 'mysql*'
-  - sudo apt-get autoremove
-  - sudo apt-get autoclean
-  - sudo rm -rf /var/lib/mysql
-  - sudo truncate -s 0 /var/log/mysql/error.log
   - sudo apt-get install -y curl
 
 install:
@@ -24,31 +20,25 @@ install:
 
 script:
   # Check the role/playbook's syntax.
-  - "ansible-playbook test/$SITE --syntax-check"
+  - "ansible-playbook ansible/site.yml --syntax-check"
 
-  # Run the role/playbook with ansible-playbook.
-  - "ansible-playbook test/$SITE --connection=local --sudo"
+  # Build docker image
+  - docker build -t maestrano/docker-lamp:travis .
 
-  # Run the role/playbook again, checking to make sure it's idempotent.
-  # - >
-  #   ansible-playbook test/$SITE --connection=local --sudo
-  #   | grep -q 'changed=0.*failed=0'
-  #   && (echo 'Idempotence test: pass' && exit 0)
-  #   || (echo 'Idempotence test: fail' && exit 1)
+  # Run image
+  - docker run -td --name travis-test maestrano/docker-lamp:travis
 
-  # Request a page via Apache, to make sure Apache is running and responds.
-  - "curl http://localhost/"
+  # Get ip address
+  - "container_ip=`docker inspect --format '{{ .NetworkSettings.IPAddress }}' travis-test`"
+
+  # Wait for ansible to finish running
+  - sleep 10
+
+  # Check that apache is up
+  - "curl http://${container_ip}:80/"
 
   # Check to make sure we can connect to MySQL via Unix socket.
-  - >
-    mysql -u root -proot -e 'show databases;'
-    | grep -q 'performance_schema'
-    && (echo 'MySQL running normally' && exit 0)
-    || (echo 'MySQL not running' && exit 1)
+  - docker exec -i travis-test mysql -u root -e 'show databases;' | grep -q 'performance_schema' && (echo 'MySQL running normally' && exit 0) || (echo 'MySQL not running' && exit 1)
 
   # Check to make sure we can connect to MySQL via TCP.
-  - >
-    mysql -u root -proot -h 127.0.0.1 -e 'show databases;'
-    | grep -q 'performance_schema'
-    && (echo 'MySQL running normally' && exit 0)
-    || (echo 'MySQL not running' && exit 1)
+  - docker exec -i travis-test mysql -u root -h 127.0.0.1 -e 'show databases;' | grep -q 'performance_schema' && (echo 'MySQL running normally' && exit 0) || (echo 'MySQL not running' && exit 1)

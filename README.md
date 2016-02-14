@@ -1,5 +1,7 @@
 # Build Maestrano LAMP stack based on Ubuntu 14.04
 
+[![Build Status](https://travis-ci.org/maestrano/docker-lamp.svg?branch=develop)](https://travis-ci.org/maestrano/docker-lamp)
+
 ## Build Docker container locally
 `sudo docker build -t local/docker-lamp .`
 
