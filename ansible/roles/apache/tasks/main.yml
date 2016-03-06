@@ -95,4 +95,11 @@
   with_items:
     - imap
 
+- name: Apache | Session cleaning script /usr/lib/php5/sessionclean
+  template:
+    src: php_sessionclean
+    dest: /usr/lib/php5/sessionclean
+    owner: root
+    mode: 0755
+
 - include: ioncube.yml
