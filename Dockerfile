@@ -8,7 +8,7 @@ RUN apt-get -y update &&  \
               python-yaml python-jinja2 python-httplib2 python-keyczar \
               python-paramiko python-setuptools python-pkg-resources python-pip &&  \
     mkdir -p /etc/ansible/ &&  \
-    pip install ansible
+    pip install ansible ansible==1.9.6
 
 # Add ansible configuration
 ADD ansible /etc/ansible
