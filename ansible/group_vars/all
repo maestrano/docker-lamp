@@ -2,15 +2,13 @@
 power_units: 2
 
 # apache
-apache_start_servers:             '{{ 1 * (power_units|int) }}'
+apache_start_servers:             '1'
+apache_max_request_workers:       '{{ 2 * (power_units|int) }}'
+apache_max_connections_per_child: '1000'
 apache_thread_limit:              '{{ 2 * (power_units|int) }}'
 apache_threads_per_child:         '{{ 2 * (power_units|int) }}'
-apache_max_request_workers:       '{{ 10 * (power_units|int) }}'
-apache_max_connections_per_child: '{{ 25 * (power_units|int) }}'
 apache_min_spare_threads:         '{{ 1 * (power_units|int) }}'
 apache_max_spare_threads:         '{{ 2 * (power_units|int) }}'
-apache_min_spare_servers:         '{{ 1 * (power_units|int) }}'
-apache_max_spare_servers:         '{{ 2 * (power_units|int) }}'
 
 # php.ini
 php_error_reporting: E_ALL & ~E_DEPRECATED & ~E_STRICT
