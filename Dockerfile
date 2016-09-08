@@ -8,14 +8,14 @@ RUN apt-get -y update &&  \
               python-yaml python-jinja2 python-httplib2 python-keyczar \
               python-paramiko python-setuptools python-pkg-resources python-pip &&  \
     mkdir -p /etc/ansible/ &&  \
-    pip install ansible
+    pip install ansible==1.9.6
 
 # Add ansible configuration
 ADD ansible /etc/ansible
 WORKDIR /etc/ansible
 
 # Run Ansible
-RUN ansible-playbook -vvv -i hosts site.yml &&  \
+RUN ansible-playbook -vvv -i hosts site.yml --skip-tags "skip-install" &&  \
     apt-get clean purge -y python2.6 python2.6-minimal &&  \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
