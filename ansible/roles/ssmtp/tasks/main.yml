@@ -1,7 +1,7 @@
 - name: General | SSMTP packages
   apt: name=ssmtp state=present
 
-- name: General | Remove configuration files
+- name: SSMTP | Remove configuration files
   file:
    path: "{{ item }}"
    state: absent
