@@ -36,6 +36,7 @@
   with_items:
     - /etc/apache2/sites-enabled/000-default.conf
     - /etc/apache2/sites-enabled/000-default
+    - /etc/apache2/envvars
 
 - name: Apache | Apache environment variables file /etc/apache2/envvars
   template:
