@@ -46,7 +46,7 @@
     - configuration
   when: configuremycnf.changed or setdirectorypermissions.changed
 
-- name: MySQL | Change password
-  include: generate-password.yml
-  tags:
-  - configuration
+# - name: MySQL | Change password
+#   include: generate-password.yml
+#   tags:
+#   - configuration
