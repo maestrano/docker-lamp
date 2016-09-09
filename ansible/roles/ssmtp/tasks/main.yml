@@ -1,8 +1,16 @@
 - name: General | SSMTP packages
   apt: name=ssmtp state=present
 
+- name: General | Remove configuration files
+  file:
+   path: "{{ item }}"
+   state: absent
+  with_items:
+    - /etc/ssmtp/ssmtp.conf
+    - /etc/ssmtp/revaliases
+
 - name: SSMTP | Configure ssmtp.conf
-  template: 
+  template:
     src: etc-ssmtp-ssmtp-conf
     dest: /etc/ssmtp/ssmtp.conf
     owner: root
@@ -11,7 +19,7 @@
     - configuration
 
 - name: SSMTP | Configure revaliases
-  template: 
+  template:
     src: etc-ssmtp-revaliases
     dest: /etc/ssmtp/revaliases
     owner: root
