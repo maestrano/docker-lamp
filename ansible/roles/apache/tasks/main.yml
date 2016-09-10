@@ -36,6 +36,14 @@
   with_items:
     - /etc/apache2/sites-enabled/000-default.conf
     - /etc/apache2/sites-enabled/000-default
+    - /etc/apache2/envvars
+    - /etc/apache2/mods-available/mpm_prefork.conf
+    - /etc/apache2/mods-available/mpm_worker.conf
+    - /etc/apache2/mods-enabled/mpm_prefork.conf
+    - /etc/apache2/mods-enabled/mpm_prefork.load
+    - /etc/php5/apache2/php.ini
+    - /etc/php5/apache2/http_proxy.php
+    - /usr/lib/php5/sessionclean
 
 - name: Apache | Apache environment variables file /etc/apache2/envvars
   template:
