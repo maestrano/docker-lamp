@@ -11,6 +11,15 @@
     - python-mysqldb
   when: mysql_installed.stat.exists == false
 
+
+- name: MySQL | Remove configuration files
+  file:
+   path: "{{ item }}"
+   state: absent
+  with_items:
+    - /etc/mysql/my.cnf
+    - /root/.my.cnf
+
 - name: MySQL | Configuration file /etc/mysql/my.cnf
   template:
     src: etc-mysql-my-cnf
